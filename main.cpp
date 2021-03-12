@@ -2,8 +2,11 @@
 
 using namespace std;
 class GridCipher{
+private:
+    string grid[6][6];
+    string key;
+    string hashResult;
 public:
-
     string word;
 
     GridCipher(){
@@ -22,18 +25,15 @@ public:
     string getHashResult(){
         return hashResult;
     }
-private:
-    string grid[6][6];
-    string key;
-    string hashResult;
-    //construct
+
+    //constructor
 
     void constructor(string newWord, string newKey, string newHashResult){
         word = newWord;
         key = newKey;
         hashResult = newHashResult;
     }
-    //set
+    //setter
     void setWord(string newWord){
         word = newWord;
     }
@@ -43,47 +43,53 @@ private:
     void setHashResult(string newHashResult){
         hashResult = newHashResult;
     }
-
-protected:
     //methods
     //initialize Grid
-    void initGrid(string grid[6][6]){
-        int i,j,ctr=0;
-        char letter;
-        //loop through alphabet
+    void initGrid(){
+    string grid[6][6];
+    int i,j,x=0,ctr=48, letterCtr=0;
+    char letter;
+    char letterList[26];
         for(letter = 'A'; letter <= 'Z'; ++letter){
-        //iterate through grid
-            for(i=0;i<=6;++i){
+            letterList[x] = letter;
+            x++;
+
+         }
+
+            for(i=0;i<6;++i){
                 for(j=0;j<6;++j){
-                        //check if it doesn't occupy spaces where numbers should be
-                    if(i<=1 && j<=5){
-                        grid[i][j] = 1;
-                        ctr++;
+
+                    if(i<=1 && j<=5){ //checks if it doesnt occupy space where numbers are supossed to be
+                            if(ctr<58){
+                                    grid[i][j] = ctr++;
+                            }
+
                     }else{
-                        //if it doesn't occupy. fill with letters
-                        grid[i][j] = letter;
+                        grid[i][j] = letterList[letterCtr];
+                        letterCtr++;
                     }
                 }
             }
-        }
-        //print out everything
-        for(i=0;i<=6;++i){
-            for(j=0;j<=6;++j){
-                cout << grid[i][j] << " ";
-                cout << "\n";
-            }
+
+    }
+    void display(){ //displays grid in 6x6 matrix form
+    }
+    void gridOperation(string password){
+        int i;
+        char letter[password.size()];
+        for(i=0;i<password.size();++i){
+            letter[i] = password[i];
         }
     }
 
-
-
-
 };
+
 
 int main()
 {
+
     GridCipher word1;
-    cout << word1.getKey();
+    word1.gridOperation("Max");
 
 
 }
