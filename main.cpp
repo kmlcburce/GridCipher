@@ -3,21 +3,52 @@
 using namespace std;
 class GridCipher{
 public:
-    string grid[6][6];
+
     string word;
+
+    GridCipher(){
+    word = "None inputted";
+    key = "NULL";
+    hashResult = "NULL";
+
+    }
+    //get
+    string getWord(){
+        return word;
+    }
+    string getKey(){
+        return key;
+    }
+    string getHashResult(){
+        return hashResult;
+    }
+private:
+    string grid[6][6];
     string key;
     string hashResult;
-
     //construct
-    void constructor(string aword){
-        word = aword;
+
+    void constructor(string newWord, string newKey, string newHashResult){
+        word = newWord;
+        key = newKey;
+        hashResult = newHashResult;
     }
     //set
-    //get
+    void setWord(string newWord){
+        word = newWord;
+    }
+    void setKey(string newKey){
+        key = newKey;
+    }
+    void setHashResult(string newHashResult){
+        hashResult = newHashResult;
+    }
+
+protected:
     //methods
     //initialize Grid
-    void initGrid(string grid[][]){
-        int i,j,ctr=1;
+    void initGrid(string grid[6][6]){
+        int i,j,ctr=0;
         char letter;
         //loop through alphabet
         for(letter = 'A'; letter <= 'Z'; ++letter){
@@ -51,8 +82,8 @@ public:
 
 int main()
 {
-    GridCipher x;
-    x.constructor("Cake");
+    GridCipher word1;
+    cout << word1.getKey();
 
 
 }
