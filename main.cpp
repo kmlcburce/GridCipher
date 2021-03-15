@@ -8,13 +8,12 @@ private:
     string hashResult;
 public:
     string word;
-
-    GridCipher(){
+    GridCipher(){ //default values if nothing is entered
     word = "None inputted";
     key = "NULL";
     hashResult = "NULL";
-
     }
+
     //get
     string getWord(){
         return word;
@@ -27,12 +26,12 @@ public:
     }
 
     //constructor
-
     void constructor(string newWord, string newKey, string newHashResult){
         word = newWord;
         key = newKey;
         hashResult = newHashResult;
     }
+
     //setter
     void setWord(string newWord){
         word = newWord;
@@ -43,8 +42,9 @@ public:
     void setHashResult(string newHashResult){
         hashResult = newHashResult;
     }
+
     //methods
-    void display(string grid[6][6]){ //displays grid in 6x6 matrix form
+    void display(string grid[6][6]){ //displays grid in 6x6 matrix form (might proc an error. Low priority in fix queue, it's all for display)
         int i,j,ctr=0;
         for(i=0;i<=6;++i){
             for(j=0;j<=6;++j){
@@ -77,7 +77,7 @@ public:
                 for(j=0;j<6;++j){
 
                     if(i<=1 && j<6){ //checks if it doesnt occupy space where numbers are supossed to be
-                            if(ctr<58){
+                            if(ctr<58){ //ASCII numbers starts from 48
                                     grid[i][j] = ctr++;
                                     /*if(j+1<=6){//test condition: pointer *cursor points to the current element in the grid, may be used to point to next element
                                         cursor = (*(grid+1)+j);
@@ -100,10 +100,10 @@ public:
 
 
     }
-    //instert display() here if needed
+    vswap(grid,0,1); //test out hswap and vswap here
 
 }
-    //algo 1: user input acts key to rotation
+    //algo 1: user input acts key to rotation (Ignore this Ridenzel)
     void binaryConverter(string password){
         int i,remainder;
         char letter[password.size()];
@@ -125,12 +125,33 @@ public:
         }
 
     }
-    //moves the grid to specified rotations
+    //moves the grid to specified rotations through shifting (Also ignore this)
     void gridOperation(string grid[6][6], int code){
 
 
 
     }
+    void hswap(string grid[6][6], int x, int y){ //problem function here
+    int ctr;
+    string temp;
+        for(ctr=0;ctr<6;ctr++){
+            temp=grid[x][ctr];
+            grid[x][ctr]=grid[y][ctr];
+            grid[y][ctr]=temp;
+
+        }
+    display(grid); // display grid
+    }
+    void vswap(string grid[6][6], int x, int y){ // not implemented yet
+    int ctr;
+    string temp;
+    for(ctr=0;ctr<6;ctr++){
+        temp=grid[x][ctr];
+        grid[ctr][x]=grid[ctr][y];
+        grid[ctr][y]=temp;
+    }
+    display(grid);
+}
 
 };
 
@@ -139,7 +160,7 @@ int main()
 {
 
     GridCipher word1;
-    word1.binaryConverter("Max");
+    word1.initGrid();
 
 
 }
