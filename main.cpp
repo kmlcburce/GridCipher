@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <cstring>
+#include <time.h>
 using namespace std;
 class GridCipher{
 private:
@@ -114,29 +115,52 @@ public:
         }
 }
 
-    /*gets new character based on original grid's coordinates
+    //Find coordinates in grid1 from grid2
+    void getCoordinates(){
+    int i,j,x=0,ctr1;
+    int wordLength = this->word.length();
+    int arr[wordLength][2];
+    string holder[wordLength];
+    for(ctr1=0;ctr1<wordLength;ctr1++){
+        holder[ctr1] = word.at(ctr1);
+        cout << holder[ctr1];
+    }
+    for(i=0;i<6;i++){
+        for(j=0;j<6;j++){
+           if(holder[ctr1] == this->grid1[i][j]){//find letter coordinates in grid1
+                arr[x][0] = i;//arr holds x and y coordinates
+                arr[x][1] = j;
+                x++;
+            }
+        }
+    }
+    gridCompare(arr);
+}
+    //gets new character based on original grid's coordinates
     void gridCompare(int arr[][2]){
     int i,j,x,y,ctr=0;
             for(x=0;x<this->word.length();x++){
                 //use arr coordinates in grid2
                 cout << this->grid2[arr[x][0]][arr[x][1]];
                 ctr++;
-
             }
-}*/
+}
 
     void mutateGrid(){
+    int wordMax = this->word.length();
     int ctr,seq[10];
     char key[20];
-    for(ctr=0;ctr<10;ctr++){
-        seq[ctr]=rand();
+    srand(time(NULL));
+    cout << "Word length: " << wordMax << endl;
+    for(ctr=0;ctr<wordMax;ctr++){
+        seq[ctr]= rand();
         cout << "Sequence: ";
         if(seq[ctr]%2==0){
-            vswap(key[ctr],key[ctr+1]);
-            printf("%d ",seq[ctr++]);
+            //vswap(key[ctr],key[ctr+1]);
+            cout << seq[ctr++] << endl;
         }else{
-            hswap(key[ctr],key[ctr+1]);
-            printf("%d ",seq[ctr++]);
+            //hswap(key[ctr],key[ctr+1]);
+            cout << seq[ctr++] << endl;
         }
     }
     printf("\nKey: %s", key);
@@ -148,6 +172,7 @@ public:
     int wordMax = this->word.length();
     char temp[wordMax+1];
         for(ctr=0;ctr<6;ctr++){
+            cout <<
             strcpy(temp,this->grid2[x][ctr].c_str());
             cout << temp;
             //strcpy(this->grid2[x][ctr],this->grid2[y][ctr]);
@@ -162,7 +187,7 @@ public:
         strcpy(temp, this->grid2[ctr][x].c_str());
         cout << temp;
         //strcpy(this->grid2[ctr][x],this->grid2[ctr][y]);
-        //strcpy(this->grid2[ctr][y],temp);
+        //strcpy(this->grid2[ctr][y].c_str(),temp);
     }
 
 }
