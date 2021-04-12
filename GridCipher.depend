@@ -1,6 +1,8 @@
 # depslib dependency file v1.0
 1615541052 source:c:\users\antoi\documents\grid\gridcipher\testpage.cpp
 
-1615888200 source:c:\users\antoi\documents\grid\gridcipher\main.cpp
+1616060857 source:c:\users\antoi\documents\grid\gridcipher\main.cpp
 	<iostream>
+	<stdio.h>
+	<string.h>
 

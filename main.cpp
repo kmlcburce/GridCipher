@@ -1,10 +1,12 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 using namespace std;
 class GridCipher{
 private:
-    string grid[6][6];
+    string grid1[6][6];
+    string grid2[6][6];
     string key;
     string hashResult;
 public:
@@ -45,178 +47,152 @@ public:
     }
 
     //methods
-    void display(string grid[6][6]){ //displays grid in 6x6 matrix form (Error here. Fix priority: Low)
+    void display(){ //displays grid in 6x6 matrix form (Error here. Fix priority: Low)
         int i,j,ctr=0;
-            for(i=0;i<=6;i++){
-                for(j=0;j<=6;j++){
-                    if(ctr<6){
-                        cout << grid[i][j] << " ";
+            for(i=0;i<6;i++){
+                for(j=0;j<6;j++){
+                    if(ctr<=6){
+                        cout << this->grid1[i][j] << " ";
                         ctr++;
                     }else{
                         cout << endl;
                         ctr = 0;
                     }
-
                 }
             }
-            cout << "Error occurs here";
-    }
+}
     //initialize Grid
     void initGrid(){
-        string grid[6][6];
         int i,j,x=0,ctr=48, letterCtr=0;
-        /*string *cursor;*/
         char letter;
         char letterList[26];
             for(letter = 'A'; letter <= 'Z'; letter++){
                 letterList[x] = letter;
                 x++;
-
              }
-
                 for(i=0;i<6;i++){
                     for(j=0;j<6;j++){
-
                         if(i<=1 && j<6){ //checks if it doesnt occupy space where numbers are supossed to be
                                 if(ctr<58){ //ASCII numbers starts from 48
-                                        grid[i][j] = ctr++;
-                                        /*if(j+1<=6){//test condition: pointer *cursor points to the current element in the grid, may be used to point to next element
-                                            cursor = (*(grid+1)+j);
-                                            cout << *cursor << endl;
-                                        }else if(j+1 >6 && i<=6){
-
-                                        }*/
-
+                                        this->grid1[i][j] = ctr++;
                                 }else{
-                                grid[i][j] = letterList[letterCtr];
+                                this->grid1[i][j] = letterList[letterCtr];
                                 letterCtr++;
                                 }
-
                         }else{
-                            grid[i][j] = letterList[letterCtr];
+                            this->grid1[i][j] = letterList[letterCtr];
                             letterCtr++;
                         }
                     }
-
-    getCoords(grid,"word");
-
+    initSecondGrid();
     }
-    //display(grid);
-    //vswap(grid,0,1); test out hswap and vswap here
-    }
-    //gets letter coordinates from grid and stores them in arr
-    void getCoords(string grid[6][6], string word){
-    int i, j,letterCtr=0, arrCtrX,arrCtrY, wordSize = word.size();
-    string letter[wordSize];
-    int arr[wordSize][2];
-
-        for(i=0;i<wordSize;i++){
-            letter[i] = word[i]; //isolate individual letters on input string
-        }
-        for(arrCtrX=0;arrCtrX<wordSize;arrCtrX++){//Loops for x value of arr[x][2]
-
-                    for(i=0;i<6;i++){//Loops through grid[][] to find matching letter
-                        for(j=0;j<6;j++){
-                            if(strcmp(grid[i][j], letter[letterCtr]) = 0){ //can string be == with char?
-                                cout << "Error occurs here";
-                                arr[arrCtrX][0] =  i;
-                                arr[arrCtrX][1] = j;
-                                letterCtr++;
-                        }
-                    }
-                }
-
-        }
-        for(arrCtrX=0;arrCtrX<wordSize;arrCtrX++){ //print out arr to check
-            for(arrCtrY=0;arrCtrY<2;arrCtrY++){
-                cout << arr[arrCtrX][arrCtrY] << " ";
-            }
-        }
-
-
-    }
-    //creates new grid to be scrambled
-    void gridScrambler(){
-        string newGrid[6][6];
+}
+    void initSecondGrid(){
         int i,j,x=0,ctr=48, letterCtr=0;
+        //string *cursor; del if needed
         char letter;
         char letterList[26];
-            for(letter = 'A'; letter <= 'Z'; ++letter){
+            for(letter = 'A'; letter <= 'Z'; letter++){
                 letterList[x] = letter;
                 x++;
-
              }
-
                 for(i=0;i<6;i++){
                     for(j=0;j<6;j++){
-
                         if(i<=1 && j<6){ //checks if it doesnt occupy space where numbers are supossed to be
                                 if(ctr<58){ //ASCII numbers starts from 48
-                                        grid[i][j] = ctr++;
+                                        this->grid2[i][j] = ctr++;
                                 }else{
-                                grid[i][j] = letterList[letterCtr];
+                                this->grid2[i][j] = letterList[letterCtr];
                                 letterCtr++;
                                 }
-
                         }else{
-                            grid[i][j] = letterList[letterCtr];
+                            this->grid2[i][j] = letterList[letterCtr];
                             letterCtr++;
                         }
                     }
+        }
+}
+    //Find coordinates in grid1
+    void getCoordinates(){
+    int i,j,x=0,ctr1;
+    int wordLength = this->word.length();
+    int arr[wordLength][2];
+    string holder[wordLength];
+    for(ctr1=0;ctr1<wordLength;ctr1++){
+        holder[ctr1] = word.at(ctr1);
+        cout << holder[ctr1];
+    }
+    for(i=0;i<6;i++){
+        for(j=0;j<6;j++){
+           if(holder[ctr1] == this->grid1[i][j]){//find letter coordinates in grid1
+                arr[x][0] = i;//arr holds x and y coordinates
+                arr[x][1] = j;
+                x++;
             }
+        }
     }
-
-
+    gridCompare(arr);
+}
     //gets new character based on original grid's coordinates
-    void gridCompare(string grid[6][6]){
+    void gridCompare(int arr[][2]){
+    int i,j,x,y,ctr=0;
+            for(x=0;x<this->word.length();x++){
+                //use arr coordinates in grid2
+                cout << this->grid2[arr[x][0]][arr[x][1]];
+                ctr++;
+
+            }
 
 
 
-    }
+}
     //moves the grid to specified rotations through row-col swapping
-    void hswap(string grid[6][6], int x, int y){
+    void hswap(int x, int y){//row
     int ctr;
     string temp;
         for(ctr=0;ctr<6;ctr++){
-            temp=grid[x][ctr];
-            grid[x][ctr]=grid[y][ctr];
-            grid[y][ctr]=temp;
-
+            strcpy(temp,this->grid2[x][ctr]);
+            cout << temp;
+            //strcpy(this->grid2[x][ctr],this->grid2[y][ctr]);
+            //strcpy(this->grid2[y][ctr],temp);
         }
-    display(grid);
-    }
-    void vswap(string grid[6][6], int x, int y){ // not implemented yet
-    int ctr;
+}
+    void vswap(int x, int y){//col
+    int ctr,ctr2,i;
     string temp;
     for(ctr=0;ctr<6;ctr++){
-        temp=grid[x][ctr];
-        grid[ctr][x]=grid[ctr][y];
-        grid[ctr][y]=temp;
+        strcpy(temp[ctr], this->grid2[ctr][x]);
+        cout << temp;
+        //strcpy(this->grid2[ctr][x],this->grid2[ctr][y]);
+        //strcpy(this->grid2[ctr][y],temp);
     }
-    display(grid);
+
+}
+    void mutateGrid(){
+    int ctr,seq[10];
+    char key[20];
+    for(ctr=0;ctr<10;ctr++){
+        seq[ctr]=rand();
+        printf("\nSequence: ");
+        if(seq[ctr]%2==0){
+            vswap(key[ctr],key[ctr+1]);
+            printf("%d ",seq[ctr++]);
+        }else{
+            hswap(key[ctr],key[ctr+1]);
+            printf("%d ",seq[ctr++]);
+        }
     }
-    /*void binaryConverter(string password){
-        int i,remainder;
-        char letter[password.size()];
-        int ascii[password.size()], remainderSet[10];
+    printf("\nKey: %s", key);
 
-        for(i=0;i<password.size();++i){
-            letter[i] = password[i]; //isolate individual letters on password string
-            ascii[i] = int(letter[i]); //convert letters to ascii number values
-            cout << ascii[i] << " ";
-        }
-        for(i=0;i<password.size();++i){
+}
+    void encrypt(string word){
+    setWord(word);
+    initGrid();
+    mutateGrid();
+    //getCoordinates();
 
-            while(remainder!=0){
-                remainder = ascii[i];
-                remainderSet[i] = remainder%2;
-                remainder = remainder/2;
 
-            }
-        }
-
-    }*/
-
+    }
 };
 
 
@@ -224,7 +200,11 @@ int main()
 {
 
     GridCipher word1;
+    string temp;
     word1.initGrid();
+    cout << "Enter word to be encyrpted: ";
+    cin >> temp;
+    word1.encrypt(temp);
 
 
 }
