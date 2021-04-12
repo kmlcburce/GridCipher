@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <cstring>
 using namespace std;
 class GridCipher{
 private:
@@ -112,28 +113,8 @@ public:
                     }
         }
 }
-    //Find coordinates in grid1
-    void getCoordinates(){
-    int i,j,x=0,ctr1;
-    int wordLength = this->word.length();
-    int arr[wordLength][2];
-    string holder[wordLength];
-    for(ctr1=0;ctr1<wordLength;ctr1++){
-        holder[ctr1] = word.at(ctr1);
-        cout << holder[ctr1];
-    }
-    for(i=0;i<6;i++){
-        for(j=0;j<6;j++){
-           if(holder[ctr1] == this->grid1[i][j]){//find letter coordinates in grid1
-                arr[x][0] = i;//arr holds x and y coordinates
-                arr[x][1] = j;
-                x++;
-            }
-        }
-    }
-    gridCompare(arr);
-}
-    //gets new character based on original grid's coordinates
+
+    /*gets new character based on original grid's coordinates
     void gridCompare(int arr[][2]){
     int i,j,x,y,ctr=0;
             for(x=0;x<this->word.length();x++){
@@ -142,38 +123,14 @@ public:
                 ctr++;
 
             }
+}*/
 
-
-
-}
-    //moves the grid to specified rotations through row-col swapping
-    void hswap(int x, int y){//row
-    int ctr;
-    string temp;
-        for(ctr=0;ctr<6;ctr++){
-            strcpy(temp,this->grid2[x][ctr]);
-            cout << temp;
-            //strcpy(this->grid2[x][ctr],this->grid2[y][ctr]);
-            //strcpy(this->grid2[y][ctr],temp);
-        }
-}
-    void vswap(int x, int y){//col
-    int ctr,ctr2,i;
-    string temp;
-    for(ctr=0;ctr<6;ctr++){
-        strcpy(temp[ctr], this->grid2[ctr][x]);
-        cout << temp;
-        //strcpy(this->grid2[ctr][x],this->grid2[ctr][y]);
-        //strcpy(this->grid2[ctr][y],temp);
-    }
-
-}
     void mutateGrid(){
     int ctr,seq[10];
     char key[20];
     for(ctr=0;ctr<10;ctr++){
         seq[ctr]=rand();
-        printf("\nSequence: ");
+        cout << "Sequence: ";
         if(seq[ctr]%2==0){
             vswap(key[ctr],key[ctr+1]);
             printf("%d ",seq[ctr++]);
@@ -183,6 +140,30 @@ public:
         }
     }
     printf("\nKey: %s", key);
+
+}
+    //moves the grid to specified rotations through row-col swapping
+    void hswap(int x, int y){//row
+    int ctr;
+    int wordMax = this->word.length();
+    char temp[wordMax+1];
+        for(ctr=0;ctr<6;ctr++){
+            strcpy(temp,this->grid2[x][ctr].c_str());
+            cout << temp;
+            //strcpy(this->grid2[x][ctr],this->grid2[y][ctr]);
+            //strcpy(this->grid2[y][ctr],temp);
+        }
+}
+    void vswap(int x, int y){//col
+    int ctr;
+    int wordMax = this->word.length();
+    char temp[wordMax+1];
+    for(ctr=0;ctr<6;ctr++){
+        strcpy(temp, this->grid2[ctr][x].c_str());
+        cout << temp;
+        //strcpy(this->grid2[ctr][x],this->grid2[ctr][y]);
+        //strcpy(this->grid2[ctr][y],temp);
+    }
 
 }
     void encrypt(string word){
@@ -198,10 +179,8 @@ public:
 
 int main()
 {
-
-    GridCipher word1;
     string temp;
-    word1.initGrid();
+    GridCipher word1;
     cout << "Enter word to be encyrpted: ";
     cin >> temp;
     word1.encrypt(temp);
