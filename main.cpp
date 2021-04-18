@@ -93,11 +93,11 @@ public:
     /*Mutations*/
     void mutateGrid(){
     int i,ctr,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
-    //srand(time(NULL));
+    srand(time(NULL));
         for(ctr=0;ctr<10;ctr++){
             seq[ctr]=rand()%10;
-            this->seQ[i] = seq[ctr];
-            cout << "Sequence: " << seq[ctr];
+            cout << "Sequence: ";
+            cout << seq[ctr];
             if(seq[ctr]%2==0){
                 vswap(key[ctr],key[ctr+1]);
                 cout << seq[ctr++] << endl;
@@ -107,33 +107,34 @@ public:
             }
         }
         for(i=0;i<10;i++){
-
+        this->seQ[i] = seq[i];
+        cout << this->seQ[i] << "+";
         }
     }
 
     void recreateGrid(){
     int i,j,ctr,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
     cout << "Enter Sequence(1 digit at a time):";
-    for(j=0;j<10;j++){
-        cin >> temp;
-        cout << "-";
-    }
-    for(ctr=0;ctr<10;ctr++){
-        for(i=0;i<10;i++){
-            seq[i]=temp%10;
-            temp=temp/10;
+        for(j=0;j<this->word.length()+1;j++){
+            cin >> temp ;
+
         }
-        if(seq[ctr]%2==0){
-            vswap(key[ctr],key[ctr+1]);
-            cout << seq[ctr++] << endl;
-        }else{
-            hswap(key[ctr],key[ctr+1]);
-            cout << seq[ctr++] << endl;
+        for(ctr=0;ctr<10;ctr++){
+            for(i=0;i<10;i++){
+                seq[i]=temp%10;
+                temp=temp/10;
+            }
+            if(seq[ctr]%2==0){
+                vswap(key[ctr],key[ctr+1]);
+                cout << seq[ctr++] << endl;
+            }else{
+                hswap(key[ctr],key[ctr+1]);
+                cout << seq[ctr++] << endl;
+            }
+            for(i=0;i<20;i++){
+                //this->seQ[i] = key[i];
+            }
         }
-        for(i=0;i<20;i++){
-            //this->seQ[i] = key[i];
-        }
-    }
     }
     //moves the grid to specified rotations through row-col swapping
     void hswap(int x, int y){//row
