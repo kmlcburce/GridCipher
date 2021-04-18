@@ -92,48 +92,44 @@ public:
     }
     /*Mutations*/
     void mutateGrid(){
-    int i,ctr,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+    int i,ctr, ctr2=0,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
     srand(time(NULL));
-        for(ctr=0;ctr<10;ctr++){
-            seq[ctr]=rand()%10;
-            cout << "Sequence: ";
-            cout << seq[ctr];
-            if(seq[ctr]%2==0){
+    cout << "Sequence: ";
+        for(ctr=0;ctr<20;ctr++){
+            seq[ctr2]=rand()%10;
+            this->seQ[ctr2] = seq[ctr2];
+            if(seq[ctr2]%2==0){
                 vswap(key[ctr],key[ctr+1]);
-                cout << seq[ctr++] << endl;
             }else{
                 hswap(key[ctr],key[ctr+1]);
-                cout << seq[ctr++] << endl;
             }
+            cout << seq[ctr2++];
+            ctr++;
         }
-        for(i=0;i<10;i++){
-        this->seQ[i] = seq[i];
-        cout << this->seQ[i] << "+";
-        }
+        cout << endl;
     }
 
     void recreateGrid(){
-    int i,j,ctr,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+    int i,j,ctr,ctr2=0,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
     cout << "Enter Sequence(1 digit at a time):";
-        for(j=0;j<this->word.length()+1;j++){
-            cin >> temp ;
-
+        for(j=0;j<10;j++){
+            cin >> seq[j];
         }
-        for(ctr=0;ctr<10;ctr++){
-            for(i=0;i<10;i++){
-                seq[i]=temp%10;
-                temp=temp/10;
-            }
-            if(seq[ctr]%2==0){
+        //this was for scanf dunno if it works for cin
+        for(i=0;i<10;i++){
+            seq[i]=temp%10;
+            temp=temp/10;
+        }
+        cout << "Sequence: ";
+        for(ctr=0;ctr<20;ctr++){
+            this->seQ[ctr2] = seq[ctr2];
+            if(seq[ctr2]%2==0){
                 vswap(key[ctr],key[ctr+1]);
-                cout << seq[ctr++] << endl;
             }else{
                 hswap(key[ctr],key[ctr+1]);
-                cout << seq[ctr++] << endl;
             }
-            for(i=0;i<20;i++){
-                //this->seQ[i] = key[i];
-            }
+            cout << seq[ctr2++];
+            ctr++;
         }
     }
     //moves the grid to specified rotations through row-col swapping
@@ -255,7 +251,7 @@ public:
     setWord(word);
     initGrid();
     mutateGrid();
-    displayGrid1();
+    displayGrid2();
     getCoordinates();
     displayResult();
 
@@ -264,8 +260,9 @@ public:
     setWord(word);
     initGrid();
     recreateGrid();
-    getCoordinatesD();
-    displayResult();
+    displayGrid2();
+    //getCoordinatesD();
+    //displayResult();
     }
 };
 
@@ -289,7 +286,7 @@ int main()
     }else if(opt == 2){
     cout << "Enter encrypted word: ";
     cin >> temp;
-    word1.decrypt(temp);
+    word1.decrypt(toupper(temp));
     }
 
 
