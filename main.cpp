@@ -112,13 +112,10 @@ public:
     void recreateGrid(){
     int i,j,ctr,ctr2=0,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
     cout << "Enter Sequence(1 digit at a time):";
-        for(j=0;j<10;j++){
-            cin >> seq[j];
-        }
+
         //this was for scanf dunno if it works for cin
         for(i=0;i<10;i++){
-            seq[i]=temp%10;
-            temp=temp/10;
+            cin >> seq[i];
         }
         cout << "Sequence: ";
         for(ctr=0;ctr<20;ctr++){
@@ -261,8 +258,8 @@ public:
     initGrid();
     recreateGrid();
     displayGrid2();
-    //getCoordinatesD();
-    //displayResult();
+    getCoordinatesD();
+    displayResult();
     }
 };
 
@@ -286,7 +283,7 @@ int main()
     }else if(opt == 2){
     cout << "Enter encrypted word: ";
     cin >> temp;
-    word1.decrypt(toupper(temp));
+    word1.decrypt(temp);
     }
 
 
