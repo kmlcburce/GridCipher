@@ -11,7 +11,7 @@ class GridCipher{
 private:
     char grid1[6][6];
     char grid2[6][6];
-    int seq[10];
+    int seQ[10];
     char hashResult[20];
 public:
     string word;
@@ -96,7 +96,8 @@ public:
     //srand(time(NULL));
         for(ctr=0;ctr<10;ctr++){
             seq[ctr]=rand()%10;
-            cout << "Sequence: ";
+            this->seQ[i] = seq[ctr];
+            cout << "Sequence: " << seq[ctr];
             if(seq[ctr]%2==0){
                 vswap(key[ctr],key[ctr+1]);
                 cout << seq[ctr++] << endl;
@@ -106,7 +107,7 @@ public:
             }
         }
         for(i=0;i<10;i++){
-                this->seq[i] = seq[i];
+
         }
     }
 
@@ -130,7 +131,7 @@ public:
             cout << seq[ctr++] << endl;
         }
         for(i=0;i<20;i++){
-            this->seq[i] = key[i];
+            //this->seQ[i] = key[i];
         }
     }
     }
@@ -245,7 +246,7 @@ public:
     cout << endl;
     cout << "Key: ";
     for(i=0;i<10;i++){
-        cout << this->seq[i];
+        cout << this->seQ[i];
     }
     }
     /*Main callers*/
