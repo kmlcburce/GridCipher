@@ -115,7 +115,11 @@ public:
 
     void recreateGrid(){
     int i,ctr,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
-    scanf("%d",temp);
+    cout << "Enter Sequence(1 digit at a time):";
+    for(j=0;j<10;j++){
+        cin >> temp;
+        cout << "-";
+    }
     for(ctr=0;ctr<10;ctr++){
         for(i=0;i<10;i++){
             seq[i]=temp%10;
