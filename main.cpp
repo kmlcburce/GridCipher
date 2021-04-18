@@ -11,21 +11,17 @@ class GridCipher{
 private:
     char grid1[6][6];
     char grid2[6][6];
-    int key[10];
+    int seq[10];
     char hashResult[20];
 public:
     string word;
     GridCipher(){ //default values if nothing is entered
     word = "None inputted";
-    key[20] = {};
     }
 
     //get
     string getWord(){
         return word;
-    }
-    int* getKey(){
-        return key;
     }
     char* getHashResult(){
         return hashResult;
@@ -97,6 +93,7 @@ public:
     /*Mutations*/
     void mutateGrid(){
     int i,ctr,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+    //srand(time(NULL));
         for(ctr=0;ctr<10;ctr++){
             seq[ctr]=rand()%10;
             cout << "Sequence: ";
@@ -109,12 +106,12 @@ public:
             }
         }
         for(i=0;i<10;i++){
-                this->key[i] = seq[i];
+                this->seq[i] = seq[i];
         }
     }
 
     void recreateGrid(){
-    int i,ctr,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+    int i,j,ctr,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
     cout << "Enter Sequence(1 digit at a time):";
     for(j=0;j<10;j++){
         cin >> temp;
@@ -133,7 +130,7 @@ public:
             cout << seq[ctr++] << endl;
         }
         for(i=0;i<20;i++){
-            this->key[i] = key[i];
+            this->seq[i] = key[i];
         }
     }
     }
@@ -247,8 +244,8 @@ public:
     }
     cout << endl;
     cout << "Key: ";
-    for(i=0;i<wordLength;i++){
-        cout << this->key[i];
+    for(i=0;i<10;i++){
+        cout << this->seq[i];
     }
     }
     /*Main callers*/
@@ -261,11 +258,12 @@ public:
     displayResult();
 
     }
-    void decrypt(){
+    void decrypt(string word){
     setWord(word);
     initGrid();
     recreateGrid();
     getCoordinatesD();
+    displayResult();
     }
 };
 
@@ -287,7 +285,9 @@ int main()
         cout << "Word is too long";
     }
     }else if(opt == 2){
-    cout << "";
+    cout << "Enter encrypted word: ";
+    cin >> temp;
+    word1.decrypt(temp);
     }
 
 
