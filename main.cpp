@@ -11,7 +11,7 @@ class GridCipher{
 private:
     char grid1[6][6];
     char grid2[6][6];
-    int key[20];
+    int key[10];
     char hashResult[20];
 public:
     string word;
@@ -96,10 +96,31 @@ public:
     }
     /*Mutations*/
     void mutateGrid(){
-    int i,ctr,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+    int i,ctr,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+        for(ctr=0;ctr<10;ctr++){
+            seq[ctr]=rand()%10;
+            cout << "Sequence: ";
+            if(seq[ctr]%2==0){
+                vswap(key[ctr],key[ctr+1]);
+                cout << seq[ctr++] << endl;
+            }else{
+                hswap(key[ctr],key[ctr+1]);
+                cout << seq[ctr++] << endl;
+            }
+        }
+        for(i=0;i<10;i++){
+                this->key[i] = seq[i];
+        }
+    }
+
+    void recreateGrid(){
+    int i,ctr,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+    scanf("%d",temp);
     for(ctr=0;ctr<10;ctr++){
-        seq[ctr]=rand();
-        cout << "Sequence: ";
+        for(i=0;i<10;i++){
+            seq[i]=temp%10;
+            temp=temp/10;
+        }
         if(seq[ctr]%2==0){
             vswap(key[ctr],key[ctr+1]);
             cout << seq[ctr++] << endl;
@@ -136,6 +157,7 @@ public:
 
     }
     /*Comparisons*/
+    /*--Encryption--*/
     //Find coordinates in grid1 from grid2
     void getCoordinates(){
     int i,j,x,ctr1;
@@ -165,9 +187,37 @@ public:
                 ctr++;
             }
     }
-
+    /*--Decryption--*/
+    void getCoordinatesD(){
+    int i,j,x,ctr1;
+    int wordLength = this->word.length();
+    int arr[wordLength][2];
+    for(x=0;x<wordLength;x++){
+        for(i=0;i<6;i++){
+            for(j=0;j<6;j++){
+               if(toupper(this->word[x]) == this->grid2[i][j]){//find letter coordinates in grid1 //changed to grid2
+                    arr[x][0] = i;//arr holds x and y coordinates
+                    arr[x][1] = j;
+                    cout << this->word[x] << " - (X,Y) val: " << arr[x][1] << "," << arr[x][0] << endl;
+                }
+            }
+        }
+    }
+    gridCompareD(arr);
+    }
+    //gets new character based on original grid's coordinates stored in arr
+    void gridCompareD(int arr[][2]){
+    int i,j,x,y,ctr=0, wordLength = this->word.length();
+            for(x=0;x<wordLength;x++){
+                //use arr coordinates in grid2
+                i = arr[x][1];
+                j = arr[x][0];
+                this->hashResult[ctr] = this->grid1[i][j];
+                ctr++;
+            }
+    }
     /*Displays*/
-    void displayGrid1(){ //displays grid in 6x6 matrix form (Error here. Fix priority: Low)
+    void displayGrid1(){ //displays grid in 6x6 matrix form
         int i,j,ctr=0;
             for(i=0;i<6;i++){
                 for(j=0;j<6;j++){
@@ -207,20 +257,35 @@ public:
     displayResult();
 
     }
+    void decrypt(){
+    setWord(word);
+    initGrid();
+    recreateGrid();
+    getCoordinatesD();
+    }
 };
 
 
 int main()
 {
+    int opt;
     string temp;
     GridCipher word1;
-    cout << "Enter word to be encyrpted (max char 20): ";
-    cin >> temp;
+    cout << "1. Encrypt" << endl << "2. Decrypt" << endl << "Enter: ";
+    cin >> opt;
+    cout << endl;
+    if(opt == 1){
+        cout << "Enter word to be encyrpted (max char 20): ";
+        cin >> temp;
     if(temp.length()< 20){
         word1.encrypt(temp);
     }else{
         cout << "Word is too long";
     }
+    }else if(opt == 2){
+    cout << "";
+    }
+
 
 
 
