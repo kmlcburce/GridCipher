@@ -110,12 +110,17 @@ public:
     }
 
     void recreateGrid(){
-    int i,j,ctr,ctr2=0,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
-    cout << "Enter Sequence(1 digit at a time):";
-
-        //this was for scanf dunno if it works for cin
-        for(i=0;i<10;i++){
-            cin >> seq[i];
+        int i,j,ctr,ctr2=0,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+        string tempHolder;
+        cout << "Enter Sequence(1 digit at a time):";
+        cin >> tempHolder; //will get a string of numbers from user
+        for(i=0;i<tempHolder.length();i++){
+        temp = int(tempHolder[i]) - 48; // get ascii int value of tempHolder, numbers start from 48-57 in ascii, so just subtract 48 to get 0-9;
+        /*Insert what you want to do with temp here*/
+        }
+        for(i=9;i>=0;i--){
+            seq[i] = temp/10;
+            temp = temp/10;
         }
         cout << "Sequence: ";
         for(ctr=0;ctr<20;ctr++){
