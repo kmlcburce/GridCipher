@@ -92,31 +92,30 @@ public:
     }
     /*Mutations*/
     void mutateGrid(){
-    int i,ctr, ctr2=0,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
-    srand(time(NULL));
-    cout << "Sequence: ";
-        for(ctr=0;ctr<20;ctr++){
-            seq[ctr2]=rand()%10;
-            this->seQ[ctr2] = seq[ctr2];
-            if(seq[ctr2]%2==0){
-                vswap(key[ctr],key[ctr+1]);
-            }else{
-                hswap(key[ctr],key[ctr+1]);
+        int i,ctr, ctr2=0,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+        srand(time(NULL));
+        cout << "Sequence: ";
+            for(ctr=0;ctr<20;ctr++){
+                seq[ctr2]=rand()%10;
+                this->seQ[ctr2] = seq[ctr2];
+                if(seq[ctr2]%2==0){
+                    vswap(key[ctr],key[ctr+1]);
+                }else{
+                    hswap(key[ctr],key[ctr+1]);
+                }
+                cout << seq[ctr2++];
+                ctr++;
             }
-            cout << seq[ctr2++];
-            ctr++;
-        }
-        cout << endl;
+            cout << endl;
     }
 
     void recreateGrid(){
         int i,j,ctr,ctr2=0,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
         string tempHolder;
-        cout << "Enter Sequence(1 digit at a time):";
+        cout << "Enter Sequence:";
         cin >> tempHolder; //will get a string of numbers from user
         for(i=0;i<tempHolder.length();i++){
         seq[i] = int(tempHolder[i]) - 48; // get ascii int value of tempHolder, numbers start from 48-57 in ascii, so just subtract 48 to get 0-9;
-        /*Insert what you want to do with temp here*/
         }
         cout << "Sequence: ";
         for(ctr=0;ctr<20;ctr++){
@@ -132,25 +131,25 @@ public:
     }
     //moves the grid to specified rotations through row-col swapping
     void hswap(int x, int y){//row
-    int ctr;
-    int wordMax = this->word.length();
-    char temp;
-        for(ctr=0;ctr<6;ctr++){
+        int ctr;
+        int wordMax = this->word.length();
+        char temp;
+            for(ctr=0;ctr<6;ctr++){
 
-            temp = this->grid2[x][ctr];
-            this->grid2[x][ctr] = this->grid2[y][ctr];
-            this->grid2[y][ctr] = temp;
-        }
+                temp = this->grid2[x][ctr];
+                this->grid2[x][ctr] = this->grid2[y][ctr];
+                this->grid2[y][ctr] = temp;
+            }
     }
     void vswap(int x, int y){//col
-    int ctr;
-    int wordMax = this->word.length();
-    char temp;
-    for(ctr=0;ctr<6;ctr++){
-        temp = this->grid2[ctr][x];
-        this->grid2[ctr][x] = this->grid2[ctr][y];
-        this->grid2[ctr][y] = temp;
-    }
+        int ctr;
+        int wordMax = this->word.length();
+        char temp;
+        for(ctr=0;ctr<6;ctr++){
+            temp = this->grid2[ctr][x];
+            this->grid2[ctr][x] = this->grid2[ctr][y];
+            this->grid2[ctr][y] = temp;
+        }
 
     }
     /*Comparisons*/
@@ -171,7 +170,7 @@ public:
             }
         }
     }
-    gridCompare(arr);
+        gridCompare(arr);
     }
     //gets new character based on original grid's coordinates stored in arr
     void gridCompare(int arr[][2]){
@@ -233,61 +232,91 @@ public:
             }
     }
     void displayResult(){
-    int i, wordLength = this->word.length();
-    cout << "HashResult: ";
-    for(i=0;i<wordLength;i++){
-        cout << this->hashResult[i];
-    }
-    cout << endl;
-    cout << "Key: ";
-    for(i=0;i<10;i++){
-        cout << this->seQ[i];
-    }
+        int i, wordLength = this->word.length();
+        cout << "HashResult: ";
+        for(i=0;i<wordLength;i++){
+            cout << this->hashResult[i];
+        }
+        cout << endl;
+        cout << "Key: ";
+        for(i=0;i<10;i++){
+            cout << this->seQ[i];
+        }
     }
     /*Main callers*/
     void encrypt(string word){
-    setWord(word);
-    initGrid();
-    mutateGrid();
-    displayGrid2();
-    getCoordinates();
-    displayResult();
-
+        char opt;
+        setWord(word);
+        initGrid();
+        mutateGrid();
+        displayGrid2();
+        getCoordinates();
+        displayResult();
+        cout << endl << "Again? [Y/N]:";
+        cin >> opt;
+        if(toupper(opt) == 'Y'){
+                cout << endl;
+                askWordEncrypt();
+        }else{
+            cout << endl;
+            menu();
+        }
     }
     void decrypt(string word){
-    setWord(word);
-    initGrid();
-    recreateGrid();
-    displayGrid2();
-    getCoordinatesD();
-    displayResult();
+        char opt;
+        setWord(word);
+        initGrid();
+        recreateGrid();
+        displayGrid2();
+        getCoordinatesD();
+        displayResult();
+        cout << endl << "Again? [Y/N]:";
+        cin >> opt;
+        if(toupper(opt) == 'Y'){
+                cout << endl;
+                askWordDecrypt();
+        }else{
+            cout << endl;
+            menu();
+        }
     }
+    void menu(){
+        int opt;
+        string temp;
+        cout << "Grid Cipher:" << endl << "1. Encrypt" << endl << "2. Decrypt" << endl << "3. Exit" << endl << "Enter: ";
+        cin >> opt;
+        cout << endl;
+        if(opt == 1){
+            askWordEncrypt();
+        }else if(opt == 2){
+            askWordDecrypt();
+        }
+    }
+
+    void askWordEncrypt(){
+        string temp;
+        cout << "Enter word to be encrypted (max char 20): ";
+        cin >> temp;
+        if(temp.length()< 20){
+            encrypt(temp);
+        }else{
+            cout << "Word is too long";
+        }
+    }
+    void askWordDecrypt(){
+        string temp;
+        cout << "Enter encrypted word: ";
+        cin >> temp;
+        decrypt(temp);
+    }
+
+
+
 };
 
 
 int main()
 {
-    int opt;
-    string temp;
     GridCipher word1;
-    cout << "1. Encrypt" << endl << "2. Decrypt" << endl << "Enter: ";
-    cin >> opt;
-    cout << endl;
-    if(opt == 1){
-        cout << "Enter word to be encyrpted (max char 20): ";
-        cin >> temp;
-    if(temp.length()< 20){
-        word1.encrypt(temp);
-    }else{
-        cout << "Word is too long";
-    }
-    }else if(opt == 2){
-    cout << "Enter encrypted word: ";
-    cin >> temp;
-    word1.decrypt(temp);
-    }
-
-
-
-
+    word1.menu();
 }
