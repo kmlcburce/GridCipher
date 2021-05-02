@@ -92,7 +92,7 @@ public:
     }
     /*Mutations*/
     void mutateGrid(){
-        int i,ctr, ctr2=0,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+        int ctr, ctr2=0,seq[10], key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
         srand(time(NULL));
         cout << "Sequence: ";
             for(ctr=0;ctr<20;ctr++){
@@ -110,7 +110,7 @@ public:
     }
 
     void recreateGrid(){
-        int i,j,ctr,ctr2=0,temp,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
+        int i,ctr,ctr2=0,seq[10],key[20]= {4,2,3,1,0,3,2,1,4,3,4,2,3,1,0,3,2,1,4,3};
         string tempHolder;
         cout << "Enter Sequence:";
         cin >> tempHolder; //will get a string of numbers from user
@@ -128,11 +128,11 @@ public:
             cout << seq[ctr2++];
             ctr++;
         }
+        cout << endl;
     }
     //moves the grid to specified rotations through row-col swapping
     void hswap(int x, int y){//row
         int ctr;
-        int wordMax = this->word.length();
         char temp;
             for(ctr=0;ctr<6;ctr++){
 
@@ -143,7 +143,6 @@ public:
     }
     void vswap(int x, int y){//col
         int ctr;
-        int wordMax = this->word.length();
         char temp;
         for(ctr=0;ctr<6;ctr++){
             temp = this->grid2[ctr][x];
@@ -156,7 +155,7 @@ public:
     /*--Encryption--*/
     //Find coordinates in grid1 from grid2
     void getCoordinates(){
-    int i,j,x,ctr1;
+    int i,j,x;
     int wordLength = this->word.length();
     int arr[wordLength][2];
     for(x=0;x<wordLength;x++){
@@ -174,7 +173,7 @@ public:
     }
     //gets new character based on original grid's coordinates stored in arr
     void gridCompare(int arr[][2]){
-    int i,j,x,y,ctr=0, wordLength = this->word.length();
+    int i,j,x,ctr=0, wordLength = this->word.length();
             for(x=0;x<wordLength;x++){
                 //use arr coordinates in grid2
                 i = arr[x][1];
@@ -185,7 +184,7 @@ public:
     }
     /*--Decryption--*/
     void getCoordinatesD(){
-    int i,j,x,ctr1;
+    int i,j,x;
     int wordLength = this->word.length();
     int arr[wordLength][2];
     for(x=0;x<wordLength;x++){
@@ -203,7 +202,7 @@ public:
     }
     //gets new character based on original grid's coordinates stored in arr
     void gridCompareD(int arr[][2]){
-    int i,j,x,y,ctr=0, wordLength = this->word.length();
+    int i,j,x,ctr=0, wordLength = this->word.length();
             for(x=0;x<wordLength;x++){
                 //use arr coordinates in grid2
                 i = arr[x][1];
@@ -214,7 +213,7 @@ public:
     }
     /*Displays*/
     void displayGrid1(){ //displays grid in 6x6 matrix form
-        int i,j,ctr=0;
+        int i,j;
             for(i=0;i<6;i++){
                 for(j=0;j<6;j++){
                     cout << this->grid1[i][j] << " ";
@@ -223,7 +222,7 @@ public:
             }
     }
     void displayGrid2(){ //displays grid in 6x6 matrix form (Error here. Fix priority: Low)
-        int i,j,ctr=0;
+        int i,j;
             for(i=0;i<6;i++){
                 for(j=0;j<6;j++){
                     cout << this->grid2[i][j] << " ";
